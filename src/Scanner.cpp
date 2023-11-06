@@ -3,6 +3,27 @@
 
 Scanner::Scanner(const std::string &source) : source(source), tokens(), start(0), current(0), line(1)
 {
+  InitKeywords();
+}
+
+void Scanner::InitKeywords()
+{
+  keywords.insert({"and", TokenType::AND});
+  keywords.insert({"class", TokenType::CLASS});
+  keywords.insert({"else", TokenType::ELSE});
+  keywords.insert({"false", TokenType::FALSE});
+  keywords.insert({"for", TokenType::FOR});
+  keywords.insert({"fun", TokenType::FUN});
+  keywords.insert({"if", TokenType::IF});
+  keywords.insert({"nil", TokenType::NIL});
+  keywords.insert({"or", TokenType::OR});
+  keywords.insert({"print", TokenType::PRINT});
+  keywords.insert({"return", TokenType::RETURN});
+  keywords.insert({"super", TokenType::SUPER});
+  keywords.insert({"this", TokenType::THIS});
+  keywords.insert({"true", TokenType::TRUE});
+  keywords.insert({"var", TokenType::VAR});
+  keywords.insert({"while", TokenType::WHILE});
 }
 
 const std::vector<Token> &Scanner::ScanTokens()
@@ -90,6 +111,10 @@ void Scanner::ScanToken()
     {
       Number();
     }
+    else if (IsAlpha(c))
+    {
+      Identifier();
+    }
     else
     {
       Lox::Error(line, "Unexpected character.");
@@ -98,7 +123,7 @@ void Scanner::ScanToken()
   }
 }
 
-void Scanner::AddToken(TokenType type, std::optional<std::string> literal = std::nullopt)
+void Scanner::AddToken(TokenType type, std::optional<std::string> literal)
 {
   auto text = source.substr(start, current);
   tokens.emplace_back(type, text, literal, line);
@@ -156,4 +181,22 @@ void Scanner::Number()
   }
 
   AddToken(TokenType::NUMBER, source.substr(start, current));
+}
+
+void Scanner::Identifier()
+{
+  while (IsAlphaNumeric(Peek()))
+  {
+    Advance();
+  }
+
+  const auto &text = source.substr(start, current);
+  TokenType type = TokenType::IDENTIFIER;
+
+  if (keywords.find(text) != keywords.end())
+  {
+    type = keywords[text];
+  }
+
+  AddToken(type);
 }
