@@ -4,20 +4,27 @@
 #include <optional>
 
 #include "TokenType.h"
+#include "Type.h"
 
 class Token
 {
 private:
   const TokenType type;
   const std::string lexeme;
-  const std::optional<std::string> literal;
+  const std::optional<Object> literal;
   const int line;
 
 public:
-  Token(const TokenType &type, const std::string &lexeme, const std::optional<std::string> &literal, const int &line);
+  Token(const TokenType &type, const std::string &lexeme, const std::optional<Object> &literal, const int &line);
 
   inline const std::string toString() const
   {
-    return std::to_string(static_cast<int>(type)) + " " + lexeme + " " + literal.value_or("");
+    std::string literalValue = "";
+    if (literal.has_value())
+    {
+      literalValue = std::get<std::string>(literal.value());
+    }
+
+    return std::to_string(static_cast<int>(type)) + " " + lexeme + " " + literalValue;
   }
 };

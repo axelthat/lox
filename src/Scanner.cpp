@@ -123,7 +123,7 @@ void Scanner::ScanToken()
   }
 }
 
-void Scanner::AddToken(TokenType type, std::optional<std::string> literal)
+void Scanner::AddToken(TokenType type, std::optional<Object> literal)
 {
   auto text = source.substr(start, current);
   tokens.emplace_back(type, text, literal, line);

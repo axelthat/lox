@@ -54,7 +54,11 @@
     "vector": "cpp",
     "algorithm": "cpp",
     "fstream": "cpp",
-    "iomanip": "cpp"
+    "iomanip": "cpp",
+    "deque": "cpp",
+    "queue": "cpp",
+    "stack": "cpp"
   },
-  "cmake.configureOnOpen": false
+  "cmake.configureOnOpen": false,
+  "C_Cpp.default.cppStandard": "c++20"
 }

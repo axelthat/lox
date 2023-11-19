@@ -1,3 +1,4 @@
 build/
 *.lox
 run.txt
+generate_ast

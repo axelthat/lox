@@ -6,6 +6,7 @@
 #include <unordered_map>
 
 #include "Token.h"
+#include "Type.h"
 
 class Lox;
 
@@ -75,5 +76,5 @@ private:
   void Identifier();
 
   void ScanToken();
-  void AddToken(TokenType type, std::optional<std::string> literal = std::nullopt);
+  void AddToken(TokenType type, std::optional<Object> literal = std::nullopt);
 };
