@@ -1,0 +1,34 @@
+// AUTOMATICALLY GENERATED
+// -- Scripts/GenerateAst.cpp
+
+#pragma once
+
+#include "Type.h"
+#include "Token.h"
+
+namespace {{ baseName }} {
+  class {{ baseName }} {};
+
+## for type in types
+  class {{ type.className }}: public {{ baseName }} {
+    private:
+## for parameter in type.parameters
+      {{ parameter }};
+## endfor
+
+    public:
+      {{ type.className }}(
+## for parameter in type.parameters
+        {{ parameter }}{% if loop.is_last == false %},{% endif %}
+
+## endfor
+      ):
+## for parameterName in type.parameterNames
+        {{ parameterName }}({{ parameterName }}){% if loop.is_last == false %},{% endif %}
+
+## endfor
+      {}
+  };
+
+## endfor
+};

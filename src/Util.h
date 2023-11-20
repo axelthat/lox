@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <fstream>
 #include <sstream>
 #include <vector>
 
@@ -8,6 +9,7 @@ class Util
 {
 public:
   static std::vector<std::string> Split(const std::string &s, char delimiter);
+  static std::string ReadFile(const std::string &path);
 
   static inline std::string LTrim(std::string &s)
   {
