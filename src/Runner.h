@@ -2,6 +2,8 @@
 
 #include <string>
 
+class Scanner;
+
 class Runner
 {
 public:
@@ -9,11 +11,11 @@ public:
 
     void Run() const;
     static bool HadError();
+    static void Error(unsigned int line, std::string message);
 
 private:
     const std::string m_Source;
     static bool m_HadError;
 
-    static void Error(unsigned int line, std::string message);
     static void Report(unsigned int line, std::string where, std::string message);
 };
